@@ -1,0 +1,6 @@
+name=input("Enter your name:")
+age=int(input('Whats your age?'))
+course=input('Your course:')
+print("Student details\nYour name is:",name)
+print(f"Age:{age}")
+print("Joined course is {}".format(course))
