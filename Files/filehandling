@@ -1,0 +1,19 @@
+file=open("Ramy.txt","w")
+file.write("Reached file handling stage. Congrats")
+file.close()
+
+file=open("Ramy.txt", "r")
+print(file.read())
+file.close()
+
+file=open("Ramy.txt","a")
+file.write("\nLearned append method. Nice")
+file.close()
+
+file=open("Ramy.txt", "r")
+print(file.read())
+file.close()
+
+file=open(r"D:\WORK\PYTHON\Files\bugatti.jpg","rb")
+print(type(file.read()))
+file.close()
