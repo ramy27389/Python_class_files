@@ -1,0 +1,119 @@
+import os
+print("Welcome to the student record portal")
+
+while True:
+    print("\n1. Add new student")
+    print("2. View the records")
+    print("3. Search a student")
+    print("4. Update the marks")
+    print("5. Delete a student")
+    print("6. Exit")
+    choice=input("Enter your choice 1-6: ")
+
+    if choice=="1":
+        rollno=input("Enter the student roll number")
+        name=input("Enter the student name")
+        marks=input("Enter marks")
+
+        file=open("students.txt","a")
+        file.write(rollno+","+name+","+marks+"\n")
+        file.close()
+        print("Student added successfully")
+
+    elif choice=="2":
+        if os.path.exists("students.txt"):
+            with open("students.txt","r") as file:
+                lines=file.readlines()
+            if len(lines)==0:
+                print("No student records found")
+            else:
+                print("\nStudent records:\n")
+                for line in lines:
+                    data=line.strip().split(",")
+                    print("Roll number: ",data[0],"|", "Name: ",data[1], "|", "Marks: ",data[2])
+        else:
+            print("No student records entered, please add one")   
+
+    elif choice=="3":
+        if os.path.exists("students.txt"):
+            roll_search=input("Enter the roll number to search: ")
+            found=False
+
+            file=open("students.txt","r")
+            for line in file:
+                data=line.strip().split(",")
+                if data[0]==roll_search:
+                    print("\nStudent found!")
+                    print("Roll number : ",data[0])
+                    print("Student : ",data[1])
+                    print("Marks : ",data[2])
+                    found=True
+                    break
+            if not found:
+                print("Student not found")
+        else:
+            print("No student records entered, please add one")
+
+    elif choice=="4":
+        if os.path.exists("students.txt"):
+            roll_update=input("Enter the roll number you want to update the marks")
+            file=open("students.txt","r")
+            lines=file.readlines()
+            file.close()
+
+            new_data=[]
+            update=False
+
+            for line in lines:
+                data=line.strip().split(",")
+                if data[0]==roll_update:
+                        print("Current mark :", data[2])
+                        new_marks=input("Enter new updated marks")
+                        data[2]=new_marks
+                        update=True
+                new_data.append(",".join(data)+"\n")
+            if update:
+                file=open("students.txt","w")
+                file.writelines(new_data)
+                file.close()
+                print("Marks updated successfully")
+            else:
+                print("Roll number not found")
+        else:
+            print("No student records entered, please add one") 
+    
+    elif choice=="5":  
+        if os.path.exists("students.txt"):
+                    roll_delete=input("Enter the roll number you want to delete")
+                    file=open("students.txt","r")
+                    lines=file.readlines()
+                    file.close()
+
+                    new_data=[]
+                    delete=False
+
+                    for line in lines:
+                        data=line.strip().split(",")
+                        if data[0]!=roll_delete:
+                            new_data.append(line)
+                        else:
+                            delete=True
+                    if delete:
+                        file=open("students.txt","w")
+                        file.writelines(new_data)
+                        file.close()
+                        print("Record deleted")
+                    else:
+                        print("REcord not found")
+        else:
+            print("No student records entered, please add one")
+
+    elif choice=="6":
+        print("Exiting...Thank you")
+        break
+
+    else:
+        print("INvalid choice")
+
+
+
